@@ -1,0 +1,48 @@
+{
+  "name": "my_app",
+  "version": "0.0.1",
+  "description": "electron_app_installer",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+
+  "build": {
+    "appId": "my_app",
+    "extraResources": [
+      {
+        "from": "git-bash/",
+        "to": "git-bash/"
+      },
+      {
+        "from": "build/",
+        "to": "build/"
+      }
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "icon.ico"
+    },
+    "nsis": {
+      "include": "build/installer.nsh",
+      "oneClick": false,
+      "installerIcon": "icon.ico",
+      "uninstallerIcon": "icon.ico",
+      "uninstallDisplayName": "my-app-uninstaller",
+      "license": "license",
+      "allowToChangeInstallationDirectory": true,
+      "runAfterFinish": true
+    }
+  },
+
+  "author": "Rafał [Bafau] Bazan",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^32.0.2",
+    "electron-builder": "^25.0.5"
+  }
+}
