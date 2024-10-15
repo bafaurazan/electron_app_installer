@@ -4,6 +4,9 @@ This project automates app installation for me to linux and windows from scratch
 ## to create installer
 `npm run build`
 
+## to fast app test
+`npx electron .`
+
 ## to install app open 
 
 somethink like that
