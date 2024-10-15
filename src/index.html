@@ -1,9 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Electron App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
 </head>
 <body>
-    <h1>Hello World!</h1>
+    <h2>WebRTC Chat</h2>
+    
+    <label for="username">Username:</label>
+    <input type="text" id="username">
+    <button id="btn-join">Join</button>
+    
+    <div id="video-container">
+        <video id="local-video" autoplay muted></video>
+    </div>
+
+    <ul id="message-list"></ul>
+
+    <input type="text" id="msg">
+    <button id="btn-send-msg">Send</button>
+
+    <button id="btn-toggle-audio">Audio Mute</button>
+    <button id="btn-toggle-video">Video Off</button>
+
+    <label id="label-username"></label>
+
+    <script src="renderer.js"></script>
 </body>
 </html>

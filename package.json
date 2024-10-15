@@ -8,7 +8,6 @@
     "build": "electron-builder",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-
   "build": {
     "appId": "my_app",
     "extraResources": [
@@ -38,7 +37,6 @@
       "runAfterFinish": true
     }
   },
-
   "author": "Rafał [Bafau] Bazan",
   "license": "MIT",
   "devDependencies": {

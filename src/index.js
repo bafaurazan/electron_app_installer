@@ -1,4 +1,5 @@
 const { app, BrowserWindow } = require('electron');
+const path = require('path')
 
 let mainWindow;
 
@@ -9,7 +10,8 @@ app.on('ready', () => {
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
-            devTools: false,
+            devTools: true,
+            enableRemoteModule: true,
         }
     });
 
