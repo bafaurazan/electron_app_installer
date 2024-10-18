@@ -20,6 +20,15 @@
         "to": "build/"
       }
     ],
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb",
+        "snap"
+      ],
+      "category": "Utility",
+      "icon": "icon.png"
+    },
     "win": {
       "target": [
         "nsis"
@@ -37,7 +46,8 @@
       "runAfterFinish": true
     }
   },
-  "author": "Rafał [Bafau] Bazan",
+  "author": "Rafał [Bafau] Bazan <rafalbe777@gmail.com>",
+
   "license": "MIT",
   "devDependencies": {
     "electron": "^32.0.2",
